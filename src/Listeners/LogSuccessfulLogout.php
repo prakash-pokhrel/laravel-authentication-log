@@ -38,7 +38,8 @@ class LogSuccessfulLogout
         $user = $event->user;
         $ip = $this->request->ip();
         $userAgent = $this->request->userAgent();
-        $authenticationLog = $user->authentications()->whereIpAddress($ip)->whereUserAgent($userAgent)->first();
+        if($user)
+            $authenticationLog = $user->authentications()->whereIpAddress($ip)->whereUserAgent($userAgent)->first();
 
         if (! $authenticationLog) {
             $authenticationLog = new AuthenticationLog([
